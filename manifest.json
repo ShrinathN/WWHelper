@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "Data Passing Extension",
+    "version": "1.0",
+    "permissions": [
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://***.whatsapp.com/",
+        "*://***.whatsapp.com/*",
+        "http://127.0.0.1/*"
+    ],
+    "background": {
+        "service_worker": "js/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://web.whatsapp.com/"
+            ],
+            "js": [
+                "js/content.js"
+            ]
+        }
+    ]
+}
