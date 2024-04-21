@@ -8,12 +8,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ received: true });
 
         //getting and sending summary
-        send_prompt(create_summarise_prompt(message.data), send_summary_response);
+        send_prompt("The participants are talking about ", create_summarise_prompt(message.data), send_summary_response);
 
     } else if (message.action === 'generate_request') {
 
         //sending receipt
         sendResponse({ received: true });
+
+        //getting and sending summary
+        send_prompt("", create_generate_prompt(message.data), send_generate_response);
+
     }
 });
 
@@ -29,7 +33,7 @@ function send_generate_response(response) {
     });
 }
 
-function send_prompt(prompt, callback) {
+function send_prompt(text_to_add, prompt, callback) {
     const postData = {
         "max_context_length": 1700,
         "max_length": 150,
@@ -63,7 +67,7 @@ function send_prompt(prompt, callback) {
         .then((response) => response.json())
         .then((data) => {
             console.log('Received data from POST request:', data.results[0].text);
-            callback(data.results[0].text);
+            callback(text_to_add + data.results[0].text);
         })
         .catch((error) => {
             console.error('Error making POST request:', error);
@@ -72,11 +76,13 @@ function send_prompt(prompt, callback) {
 
 
 function create_summarise_prompt(data) {
-    let base_prompt = "Given the below text messages from two individuals, generate a summary. Using context clues, vocabulary and grammar deduce the subject of conversation.\n";
+    let base_prompt = "Given the below text messages from two individuals, generate a summary. Using context clues, vocabulary and grammar to deduce the subject of conversation.\n";
     let final_prompt = base_prompt + data + "\n---\nThe participants are talking about";
     return final_prompt;
 }
 
 function create_generate_prompt(data) {
-    let base_prompt = "";
+    let base_prompt = "Given the below text messages from two individuals, predict the next line for the user \"You\". Using context clues, vocabulary and grammar to deduce the subject of conversation. Generate only a single comment.\n";
+    let final_prompt = base_prompt + data + "\n---\nYou: ";
+    return final_prompt;
 }
