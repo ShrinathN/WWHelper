@@ -1,2 +1,12 @@
 # WWHelper
-Chrome extension to interface koboldcpp to whatsapp web
+Chrome extension to interface ChatGPT et al API server to Whatsapp Web
+
+## How do I use it?
+![How to use?](https://raw.githubusercontent.com/ShrinathN/WWHelper/master/img/how_to_use.gif)
+
+## Features
+- [X] Summarise Chat
+- [X] Impersonate
+- [ ] Ask context related questions
+- [ ] OpenAI API key integration
+

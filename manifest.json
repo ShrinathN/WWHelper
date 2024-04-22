@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Data Passing Extension",
+    "name": "Koboldcpp Helper",
     "version": "1.0",
     "permissions": [
         "storage",
@@ -23,5 +23,8 @@
                 "js/content.js"
             ]
         }
-    ]
+    ],
+    "action": {
+        "default_icon": "img/icon.png"
+    }
 }
